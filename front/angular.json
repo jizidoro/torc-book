@@ -1,0 +1,153 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "comrade-project": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "baseHref": "/",
+            "outputPath": "dist/comrade-project",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "aot": true,
+            "allowedCommonJsDependencies": ["jszip", "luxon"],
+            "assets": ["src/favicon.ico", "src/assets", "src/assets/svg/*"],
+            "styles": ["src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "aot": true,
+              "optimization": true,
+              "sourceMap": false,
+              "outputHashing": "bundles",
+              "extractLicenses": true,
+              "namedChunks": true,
+              "commonChunk": true,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "baseline": "2.2mb",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "baseline": "200kb",
+                  "maximumWarning": "8kb",
+                  "maximumError": "16kb"
+                }
+              ]
+            },
+            "debug": {
+              "progress": true,
+              "optimization": false,
+              "buildOptimizer": false,
+              "aot": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "namedChunks": true,
+              "commonChunk": true,
+              "vendorChunk": true,
+              "verbose": true
+            },
+            "optimized": {
+              "aot": true,
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": false,
+              "namedChunks": true,
+              "commonChunk": true,
+              "buildOptimizer": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "comrade-project:build",
+            "host": "0.0.0.0"
+          },
+          "configurations": {
+            "debug": {
+              "browserTarget": "comrade-project:build:debug"
+            },
+            "optimized": {
+              "browserTarget": "comrade-project:build:optimized"
+            },
+            "production": {
+              "browserTarget": "comrade-project:build:production"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "comrade-project:serve"
+          },
+          "configurations": {
+            "local": {
+              "devServerTarget": "comrade-project:serve:local"
+            },
+            "production": {
+              "devServerTarget": "comrade-project:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "comrade-project",
+  "cli": {
+    "cache": {
+      "enabled": true,
+      "path": ".cache",
+      "environment": "all"
+    },
+    "defaultCollection": "@angular-eslint/schematics",
+    "analytics": "ad1dec1e-abd6-43d1-bebb-163d8044f2d6"
+  }
+}
