@@ -1,10 +1,10 @@
 export const environment = {
   production: true,
-  disablePermissions: false,
-  disableAuthGuard: false,
+  disablePermissions: true,
+  disableAuthGuard: true,
+  enableHandlerErrorPage: true,
   logRequest: false,
   traceRequest: false,
   googleMapsApiKey: '',
-  TOKEN: 'https://localhost:44304/api/v1/',
-  SYSTEMUSER: 'https://localhost:44304/api/v1/',
+  BOOK: 'http://4.156.179.83:8080/api/v1/',
 };

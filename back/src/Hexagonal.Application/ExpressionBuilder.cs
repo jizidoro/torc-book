@@ -9,7 +9,8 @@ public static class ExpressionBuilder
     {
         var parameter = Expression.Parameter(typeof(T), "x");
 
-        var propertyInfo = typeof(T).GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+        var propertyInfo = typeof(T).GetProperty(propertyName,
+            BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
         if (propertyInfo == null)
         {
             throw new ArgumentException($"Property '{propertyName}' not found on type '{typeof(T)}'.");
@@ -23,7 +24,7 @@ public static class ExpressionBuilder
         var propertyAccess = Expression.MakeMemberAccess(parameter, propertyInfo);
         var toLowerMethod = typeof(string).GetMethod("ToLower", Type.EmptyTypes);
         var propertyAccessToLower = Expression.Call(propertyAccess, toLowerMethod);
-        var containsMethod = typeof(string).GetMethod("Contains", new[] { typeof(string) });
+        var containsMethod = typeof(string).GetMethod("Contains", new[] {typeof(string)});
 
         var someValue = Expression.Constant(searchValue.ToLower(), typeof(string));
         var containsExpression = Expression.Call(propertyAccessToLower, containsMethod, someValue);

@@ -18,6 +18,7 @@ public static class LoggingExtensions
             .Enrich.FromLogContext()
             .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
             .WriteTo.Providers(providers)
+            .WriteTo.Console()
             .CreateLogger();
     }
 }

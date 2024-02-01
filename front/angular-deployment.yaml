@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hexagonal-angular-deployment
+spec:
+  replicas: 2 # You can adjust the number of replicas based on your needs
+  selector:
+    matchLabels:
+      app: hexagonal-angular
+  template:
+    metadata:
+      labels:
+        app: hexagonal-angular
+    spec:
+      containers:
+      - name: hexagonal-angular
+        image: hracuityregistrynamev1.azurecr.io/hexagonal-front:v3 # Replace with your Angular app's image
+        ports:
+        - containerPort: 80 # Angular app's container port

@@ -1,6 +1,5 @@
 using Hexagonal.Data.DataAccess;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using StackExchange.Redis;
 
 namespace Hexagonal.API.Modules;
 
@@ -22,8 +21,6 @@ public static class PersistenceExtensions
             .BuildServiceProvider()
             .GetRequiredService<IFeatureManager>();
 
-        var redisConnection = configuration.GetConnectionString("RedisConnection");
-
         services.AddDbContext<HexagonalContext>(options =>
             options.UseInMemoryDatabase("test_database").EnableSensitiveDataLogging()
                 .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning)));
@@ -31,12 +28,6 @@ public static class PersistenceExtensions
         var context = services.BuildServiceProvider()
             .GetService<HexagonalContext>();
         HexagonalMemoryContextFake.AddDataFakeContext(context);
-
-        if (redisConnection != null)
-        {
-            services.AddSingleton<IConnectionMultiplexer>(
-                ConnectionMultiplexer.Connect(redisConnection));
-        }
 
         return services;
     }

@@ -10,17 +10,6 @@ export class AuthGuard implements CanActivate, OnDestroy {
   subscriptions = new Subscription();
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (!environment.disablePermissions) {
-      const token = localStorage.getItem('comradeToken');
-
-      if (token) {
-        return true;
-      } else {
-        this.router.navigate(['/auth']);
-        return false;
-      }
-    }
-
     return true;
   }
 

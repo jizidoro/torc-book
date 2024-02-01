@@ -64,15 +64,8 @@ public sealed class Startup
         IWebHostEnvironment env,
         IApiVersionDescriptionProvider provider)
     {
-        if (env.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
-        else
-        {
-            app.UseExceptionHandler("/api/V1/CustomError")
-                .UseHsts();
-        }
+        app.UseDeveloperExceptionPage();
+
 
         app
             .UseProxy(Configuration)

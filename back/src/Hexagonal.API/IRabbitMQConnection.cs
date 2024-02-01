@@ -6,5 +6,5 @@ public interface IRabbitMqConnection : IDisposable
 {
     bool IsConnected { get; }
     bool TryConnect();
-    IModel CreateModel();
+    IModel? CreateModel();
 }

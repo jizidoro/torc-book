@@ -10,10 +10,6 @@ public enum CustomFeature
     /// </summary>
     Book,
 
-    /// <summary>
-    ///     Get Category.
-    /// </summary>
-    Category,
 
     /// <summary>
     ///     Use Swagger.

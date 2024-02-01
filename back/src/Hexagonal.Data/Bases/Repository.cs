@@ -136,7 +136,7 @@ public class Repository<TEntity> : IRepository<TEntity>
     {
         var query = GetAll();
         if (projection != null) query = query.Where(projection);
-        
+
         return query;
     }
 
@@ -145,7 +145,7 @@ public class Repository<TEntity> : IRepository<TEntity>
     {
         var query = GetAll();
         if (projection != null) query = query.Select(projection);
-        
+
         return await query.FirstOrDefaultAsync().ConfigureAwait(false);
     }
 

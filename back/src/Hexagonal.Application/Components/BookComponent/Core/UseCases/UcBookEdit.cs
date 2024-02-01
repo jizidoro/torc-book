@@ -1,13 +1,14 @@
 ﻿using Hexagonal.Application.Bases;
 using Hexagonal.Application.Bases.Interfaces;
 using Hexagonal.Application.Components.BookComponent.Core.Validations;
+using Hexagonal.Data;
 using Hexagonal.Data.Bases;
 using Hexagonal.Domain;
 using Hexagonal.Domain.Bases;
 
 namespace Hexagonal.Application.Components.BookComponent.Core.UseCases;
 
-public class UcBookEdit(IBookEditValidation bookEditValidation, IRedisRepository<Book> redisRepository)
+public class UcBookEdit(IBookEditValidation bookEditValidation, IBookRepository repository)
     : UseCase, IUcBookEdit
 {
     public async Task<ISingleResult<Entity>> Execute(Book newRecord)
@@ -18,7 +19,7 @@ public class UcBookEdit(IBookEditValidation bookEditValidation, IRedisRepository
             return isValid;
         }
 
-        var savedRecord = await redisRepository.GetById(newRecord.Id).ConfigureAwait(false);
+        var savedRecord = await repository.GetById(newRecord.Id).ConfigureAwait(false);
 
         if (savedRecord is null)
         {
@@ -34,7 +35,7 @@ public class UcBookEdit(IBookEditValidation bookEditValidation, IRedisRepository
         var obj = savedRecord;
         HydrateValues(obj, newRecord);
 
-        redisRepository.Update(obj);
+        repository.Update(obj);
 
         return new EditResult<Entity>(true,
             "");

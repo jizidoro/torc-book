@@ -5,7 +5,7 @@ namespace Hexagonal.API;
 public class RabbitMqConnection : IRabbitMqConnection
 {
     private readonly IConnectionFactory _connectionFactory;
-    private IConnection _connection;
+    private IConnection? _connection;
     private bool _disposed;
 
     public RabbitMqConnection(IConnectionFactory connectionFactory)
@@ -17,16 +17,16 @@ public class RabbitMqConnection : IRabbitMqConnection
         }
     }
 
-    public bool IsConnected => _connection != null && _connection.IsOpen && !_disposed;
+    public bool IsConnected => _connection is {IsOpen: true} && !_disposed;
 
-    public IModel CreateModel()
+    public IModel? CreateModel()
     {
         if (!IsConnected)
         {
             throw new InvalidOperationException("No RabbitMQ connections are available to perform this action.");
         }
 
-        return _connection.CreateModel();
+        return _connection?.CreateModel();
     }
 
     public bool TryConnect()
@@ -58,7 +58,7 @@ public class RabbitMqConnection : IRabbitMqConnection
 
         try
         {
-            _connection.Dispose();
+            _connection?.Dispose();
         }
         catch (Exception)
         {

@@ -5,7 +5,6 @@ using Hexagonal.Application.Bases.Interfaces;
 using Hexagonal.Application.Components.BookComponent.Contracts;
 using Hexagonal.Application.Paginations;
 using Hexagonal.Data;
-using System.Linq.Expressions;
 using Hexagonal.Domain;
 
 namespace Hexagonal.Application.Components.BookComponent.Queries;
@@ -41,9 +40,9 @@ public class BookQuery(
 
     public async Task<IPageResultDto<BookDto>> GetByProjection(string propName, string value)
     {
-        Expression<Func<Book, bool>> expression = ExpressionBuilder.BuildContainsExpression<Book>(propName, value);
+        var expression = ExpressionBuilder.BuildContainsExpression<Book>(propName, value);
         var entity = repository.GetByProjection(expression);
-        List<BookDto> list = entity
+        var list = entity
             .ProjectTo<BookDto>(mapper.ConfigurationProvider)
             .ToList();
 
