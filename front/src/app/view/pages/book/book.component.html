@@ -1,5 +1,4 @@
 <div class="search-container">
-  <form (ngSubmit)="onSearch()" #searchForm="ngForm">
     <div class="form-group">
       <label for="searchBy">Search By:</label>
       <select
@@ -30,13 +29,13 @@
       />
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="!searchForm.valid">Search</button>
-  </form>
+    <button type="submit" class="btn btn-primary" (click)="loadSearch()">Search</button>
+    <button class="btn" (click)="ResetPage()">Reset</button>
 </div>
 
 <div class="book-container">
   <h2>Search Results:</h2>
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>Book Title</th>
@@ -61,3 +60,15 @@
     </tbody>
   </table>
 </div>
+
+<!-- Pagination Controls -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" href="#" (click)="prevPage(); $event.preventDefault()">Previous</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#" (click)="nextPage(); $event.preventDefault()">Next</a>
+    </li>
+  </ul>
+</nav>

@@ -4,11 +4,12 @@ import { throwIfAlreadyLoaded } from '../../../services/guards/module-import.gua
 import { BookComponent } from './book.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NumberToArrayPipe } from '../../pipes/NumberToArrayPipe';
 
 @NgModule({
   imports: [BookRoutingModule, CommonModule, FormsModule],
   exports: [],
-  declarations: [BookComponent],
+  declarations: [BookComponent, NumberToArrayPipe],
   providers: [],
 })
 export class BookModule {

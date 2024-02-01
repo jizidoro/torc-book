@@ -6,17 +6,17 @@ import { PageFilterModel } from '../../utils/filters/page-filter.model';
 import { PageResultModel } from '../../utils/responses/page-result.model';
 import { BookModel } from '../../models/book.model';
 import { BookRepository } from '../../repositories/book.repository';
-import { BookProjectionModel } from '../../models/book.projection.model';
+import { PageCustomSearchFilterModel } from '../../models/page-custom-search-filter.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GetBookByProjectionUsecase
-  implements UseCase<BookProjectionModel, PageResultModel<BookModel>>
+  implements UseCase<PageCustomSearchFilterModel, PageResultModel<BookModel>>
 {
   constructor(private bookRepository: BookRepository) {}
 
-  execute(filter: BookProjectionModel): Observable<PageResultModel<BookModel>> {
+  execute(filter: PageCustomSearchFilterModel): Observable<PageResultModel<BookModel>> {
     return this.bookRepository.getBookByProjection(filter);
   }
 }

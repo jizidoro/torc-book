@@ -5,6 +5,7 @@ using Hexagonal.Application.Bases;
 using Hexagonal.Application.Components.BookComponent.Commands;
 using Hexagonal.Application.Components.BookComponent.Contracts;
 using Hexagonal.Application.Components.BookComponent.Queries;
+using Hexagonal.Application.Paginations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -25,11 +26,11 @@ public class BookController(
 
     [HttpGet("get-all")]
     [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.List))]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] PaginationQuery? paginationQuery)
     {
         try
         {
-            var result = await bookQuery.GetAll().ConfigureAwait(false);
+            var result = await bookQuery.GetAll(paginationQuery).ConfigureAwait(false);
             return StatusCode(result.Code, result);
         }
         catch (Exception e)
@@ -42,11 +43,11 @@ public class BookController(
 
     [HttpGet("get-by-projection")]
     [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.List))]
-    public async Task<IActionResult> GetByProjection(string propName, string value)
+    public IActionResult GetByProjection([FromQuery] PaginationSearchQuery paginationSearchQuery)
     {
         try
         {
-            var result = await bookQuery.GetByProjection(propName, value).ConfigureAwait(false);
+            var result = bookQuery.GetByProjection(paginationSearchQuery);
             return StatusCode(result.Code, result);
         }
         catch (Exception e)

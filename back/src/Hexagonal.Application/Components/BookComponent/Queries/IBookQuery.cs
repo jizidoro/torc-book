@@ -8,5 +8,5 @@ public interface IBookQuery
 {
     Task<IPageResultDto<BookDto>> GetAll(PaginationQuery? paginationQuery = null);
     Task<ISingleResultDto<BookDto>> GetById(int id);
-    Task<IPageResultDto<BookDto>> GetByProjection(string propName, string value);
+    IPageResultDto<BookDto> GetByProjection(PaginationSearchQuery paginationSearchQuery);
 }

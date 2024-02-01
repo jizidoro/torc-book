@@ -6,7 +6,7 @@ import { EditBookUsecase } from 'src/app/core/usecases/book/edit-book.usecase';
 import { BookModel } from 'src/app/core/models/book.model';
 import { PageResultModel } from 'src/app/core/utils/responses/page-result.model';
 import { GetBookByProjectionUsecase } from 'src/app/core/usecases/book/get-book-by-projection.usecase';
-import { BookProjectionModel } from 'src/app/core/models/book.projection.model';
+import { PageCustomSearchFilterModel } from 'src/app/core/models/page-custom-search-filter.model';
 
 @Component({
   selector: 'app-book',
@@ -27,28 +27,75 @@ export class BookComponent implements OnInit {
   searchCriteria: string = '';
   searchValue: string = '';
 
+  currentPage = 1;
+  itemsPerPage = 5;
+
+  isSearch = false;
+
   ngOnInit(): void {
-    this.getAllBook
-      .execute({ pageSize: 10, pageNumber: 1 })
-      .subscribe((grid: PageResultModel<BookModel>) => {
-        console.log(grid.data);
-        this.dataSource = grid.data!;
-      });
+    this.loadPage()
   }
 
-  onSearch(): void {
+  loadSearch(): void {
     var bookProjectionModel = {
       propName: this.searchCriteria,
       value: this.searchValue,
-    } as BookProjectionModel;
+      pageSize: this.itemsPerPage,
+      pageNumber: this.currentPage
+    } as PageCustomSearchFilterModel;
 
-    console.log(bookProjectionModel);
+    if(!this.isSearch){
+      this.isSearch = true;
+      this.currentPage = 1;
+    }
     this.getBookByProjection
       .execute(bookProjectionModel)
       .subscribe((grid: PageResultModel<BookModel>) => {
         this.dataSource = grid.data!;
       });
   }
+
+  ResetPage() {
+    this.isSearch = false;
+    this.searchCriteria = "";
+    this.searchValue = "";
+    this.loadPage();
+  }
+
+  loadPage() {
+    this.getAllBook
+      .execute({ pageSize: this.itemsPerPage, pageNumber: this.currentPage })
+      .subscribe((grid: PageResultModel<BookModel>) => {
+        this.dataSource = grid.data!;
+      });
+  }
+
+  nextPage() {
+    if(this.dataSource!.length >= this.itemsPerPage)
+    {
+      this.currentPage++;
+      if(this.isSearch){
+        this.loadSearch();
+      }
+      else{
+        this.loadPage();
+      }
+    }
+  }
+
+  prevPage() {
+    console.log(this.currentPage);
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      if(this.isSearch){
+        this.loadSearch();
+      }
+      else{
+        this.loadPage();
+      }
+    }
+  }
+
 
   delete(e: any): void {
     this.deleteBook.execute(e.key).subscribe();

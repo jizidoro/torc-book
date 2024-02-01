@@ -17,6 +17,14 @@ public class PageResultDto<T> : ResultDto, IPageResultDto<T>
             : string.Empty;
     }
 
+    public PageResultDto(string message)
+    {
+        Data = null;
+        Code = (int) EnumResponse.NotFound;
+        Success = false;
+        Message = message;
+    }
+
     public PageResultDto(PaginationFilter pagination, List<T>? data)
     {
         Data = data;

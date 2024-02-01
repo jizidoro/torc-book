@@ -38,12 +38,22 @@ public class BookQuery(
         return new PageResultDto<BookDto>(paginationFilter, list);
     }
 
-    public async Task<IPageResultDto<BookDto>> GetByProjection(string propName, string value)
+    public IPageResultDto<BookDto> GetByProjection(PaginationSearchQuery paginationSearchQuery)
     {
-        var expression = ExpressionBuilder.BuildContainsExpression<Book>(propName, value);
+        var expression = ExpressionBuilder.BuildContainsExpression<Book>(paginationSearchQuery.PropName, paginationSearchQuery.Value);
         var entity = repository.GetByProjection(expression);
+
+        if (!entity.Any())
+        {
+            return new PageResultDto<BookDto>("error the projection don`t generate any results" + expression.Body.ToString());
+        }
+
+        var skip = (paginationSearchQuery.PageNumber - 1) * paginationSearchQuery.PageSize;
+
         var list = entity
             .ProjectTo<BookDto>(mapper.ConfigurationProvider)
+            .Skip(skip)
+            .Take(paginationSearchQuery.PageSize)
             .ToList();
 
         return new PageResultDto<BookDto>(list);

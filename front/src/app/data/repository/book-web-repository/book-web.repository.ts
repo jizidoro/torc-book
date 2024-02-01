@@ -9,10 +9,10 @@ import { BookRepository } from 'src/app/core/repositories/book.repository';
 import { BookModel } from 'src/app/core/models/book.model';
 import { PageResultModel } from 'src/app/core/utils/responses/page-result.model';
 import { PageFilterModel } from 'src/app/core/utils/filters/page-filter.model';
-import { makeParamFilterGrid } from '../../helper.repository';
+import { makeParamCustomSearchFilter, makeParamFilterGrid } from '../../helper.repository';
 import { SingleResultModel } from '../../../core/utils/responses/single-result.model';
 import { HttpParams } from '@angular/common/http';
-import { BookProjectionModel } from 'src/app/core/models/book.projection.model';
+import { PageCustomSearchFilterModel } from 'src/app/core/models/page-custom-search-filter.model';
 
 @Injectable({
   providedIn: 'root',
@@ -44,21 +44,18 @@ export class BookWebRepository extends BookRepository {
     return request;
   }
 
-  getBookByProjection(filter: BookProjectionModel): Observable<PageResultModel<BookModel>> {
-    const queryParams = new HttpParams()
-      .set('propName', filter.propName)
-      .set('value', filter.value);
-
+  getBookByProjection(filter: PageCustomSearchFilterModel): Observable<PageResultModel<BookModel>> {
+    console.log("filter");
+    console.log(filter);
     var request = this.http
-      .getByParams<PageResultModel<BookModel>>(
-        `${environment.BOOK}book/get-by-projection`,
-        queryParams
-      )
-      .pipe(
-        map((x) => {
-          return this.mapper.responseGridWebMapFrom(x.data);
-        })
-      );
+    .getAll<PageResultModel<BookWebEntity>>(
+      `${environment.BOOK}book/get-by-projection${makeParamCustomSearchFilter(filter)}`
+    )
+    .pipe(
+      map((x) => {
+        return this.mapper.responseGridWebMapFrom(x.data);
+      })
+    );
     return request;
   }
 
