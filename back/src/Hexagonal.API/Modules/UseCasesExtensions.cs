@@ -18,8 +18,6 @@ public static class UseCasesExtensions
     /// <param name="services"></param>
     public static IServiceCollection AddUseCases(this IServiceCollection services)
     {
-        services.AddScoped<IBookService, BookService>();
-
         #region Book
 
         // Application - Services
