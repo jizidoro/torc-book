@@ -11,13 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Driven", "3-Driven", "{E6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Test", "4-Test", "{0A1B95B2-55EF-49F6-8F78-1B2CD1BB1946}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hexagonal.API", "src\Hexagonal.Api\hexagonal.API.csproj", "{BE90189C-AD75-43B2-BA57-37E84E981A3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hexagonal.API", "src\Hexagonal.API\Hexagonal.API.csproj", "{BE90189C-AD75-43B2-BA57-37E84E981A3F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hexagonal.Application", "src\hexagonal.Application\hexagonal.Application.csproj", "{FE90C637-4A96-4A31-A18F-1C39BEB0F151}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hexagonal.Application", "src\Hexagonal.Application\Hexagonal.Application.csproj", "{FE90C637-4A96-4A31-A18F-1C39BEB0F151}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hexagonal.Data", "src\hexagonal.Data\hexagonal.Data.csproj", "{199E0F14-664E-4785-916D-E44E11FB6617}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hexagonal.Data", "src\Hexagonal.Data\Hexagonal.Data.csproj", "{199E0F14-664E-4785-916D-E44E11FB6617}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hexagonal.Domain", "src\hexagonal.Domain\hexagonal.Domain.csproj", "{3601F609-A3D1-4792-9234-57B34A31A8AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hexagonal.Domain", "src\Hexagonal.Domain\Hexagonal.Domain.csproj", "{3601F609-A3D1-4792-9234-57B34A31A8AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sender", "Sender", "{78231E82-5A4F-4F13-8E17-083E8EF87626}"
 EndProject
