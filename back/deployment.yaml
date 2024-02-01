@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: hexagonal
-        image: YourRegistryName.azurecr.io/hexagonalimage:v1
+        image: hracuityregistrynamev1.azurecr.io/hexagonal-api-v3:latest
         ports:
         - containerPort: 80
