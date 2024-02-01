@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hexagonal-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hexagonal
+  template:
+    metadata:
+      labels:
+        app: hexagonal
+    spec:
+      containers:
+      - name: hexagonal
+        image: YourRegistryName.azurecr.io/hexagonalimage:v1
+        ports:
+        - containerPort: 80
