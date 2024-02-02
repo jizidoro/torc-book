@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: hexagonal-angular
-        image: hracuityregistrynamev1.azurecr.io/hexagonal-front:v3 # Replace with your Angular app's image
+        image: hracuityregistrynamev1.azurecr.io/hexagonal-front:v4 # Replace with your Angular app's image
         ports:
         - containerPort: 80 # Angular app's container port
